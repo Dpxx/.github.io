@@ -1,0 +1,43 @@
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>EE447</title>
+<head>
+    <link rel="stylesheet" href="src/leaflet.css">
+	<link rel="stylesheet" href="src/Control.MiniMap.css" />
+    <style>
+    body{text-align:center}
+    #image-map {
+        width: 100%;
+        height: 100%;
+        border: 1px solid #ccc;
+        margin: 0 auto;
+        float:left;
+    }
+    #map {
+        width: 100%;
+        height: 100%;
+        border: 1px solid #ccc;
+        margin: 0 auto;
+        float:left;
+    }
+    </style>
+</head>
+<body>
+  <div id="text1" style="width:9%;float:left;">当前放大层数 : 0</div>
+  <div id="image-map"></div>
+  <div id="text2" style="width:9%;float:left;">当前放大层数 : 2</div>
+  <div id="map"></div>
+<script src="src/leaflet.js"></script>
+<script src="src/myscript.js"></script>
+<script src="src/Control.MiniMap.js"></script>
+<script type="text/javascript">
+	var minim = L.tileLayer.chinaProvider('MyMap.Normal.Map', {
+		maxZoom: 7,
+		minZoom: 0,
+		tileSize: 256
+	});
+	var osm = L.layerGroup([minim]);
+	var miniMap = new L.Control.MiniMap(osm, { toggleDisplay: true, zoomLevelFixed:true}).addTo(map_1);
+</script>
+</body>
+</html>
