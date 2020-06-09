@@ -109,13 +109,10 @@ L.TileLayer.ChinaProvider = L.TileLayer.extend({
 L.TileLayer.ChinaProvider.providers = {
     MyMap: {
         Normal: {
-          //Map: 'http://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}',
        		Map: 'img/{z}/{x}/{y}.png',
         },
         Satellite: {
-          //Map: 'http://webst0{s}.is.autonavi.com/appmaptile?style=6&x={x}&y={y}&z={z}',
  			Map: 'img/{z}/{x}/{y}.png',
-          //Annotion: 'http://webst0{s}.is.autonavi.com/appmaptile?style=8&x={x}&y={y}&z={z}'
        		Annotion: 'img/{z}/{x}/{y}.png'
         },
         Subdomains: ["0","1", "2", "3", "4"]
@@ -150,4 +147,7 @@ map_1.on('zoomend', function(e){
   level = map_1.getZoom();
   console.log("zoom changed." + level);
   document.getElementById('text2').textContent = "当前放大层数 : " + level;
+});
+map_1.on('click', function(e){
+  L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
 });
