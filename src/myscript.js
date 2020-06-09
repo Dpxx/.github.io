@@ -136,13 +136,10 @@ L.TileLayer.ChinaProvider = L.TileLayer.extend({
 L.TileLayer.ChinaProvider.providers = {
     MyMap: {
         Normal: {
-          //Map: 'http://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}',
        		Map: 'img/{z}/{x}/{y}.png',
         },
         Satellite: {
-          //Map: 'http://webst0{s}.is.autonavi.com/appmaptile?style=6&x={x}&y={y}&z={z}',
- 			Map: 'img/{z}/{x}/{y}.png',
-          //Annotion: 'http://webst0{s}.is.autonavi.com/appmaptile?style=8&x={x}&y={y}&z={z}'
+ 		Map: 'img/{z}/{x}/{y}.png',
        		Annotion: 'img/{z}/{x}/{y}.png'
         },
         Subdomains: ["0","1", "2", "3", "4"]
