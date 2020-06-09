@@ -1,7 +1,7 @@
 // create the slippy map
 var map = L.map('image-map', {
     minZoom: 0,
-    maxZoom: 9,
+    maxZoom: 7,
     center: [0, 0],
     zoom: 0,
     crs: L.CRS.Simple,
@@ -151,7 +151,7 @@ L.tileLayer.chinaProvider = function(type, options) {
 };
 
 var normalm = L.tileLayer.chinaProvider('MyMap.Normal.Map', {
-    maxZoom: 9,
+    maxZoom: 7,
     minZoom: 0,
     tileSize: 256
 });
