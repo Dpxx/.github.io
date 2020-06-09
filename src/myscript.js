@@ -1,7 +1,7 @@
 // create the slippy map
 var map = L.map('image-map', {
     minZoom: 0,
-    maxZoom: 7,
+    maxZoom: 9,
     center: [0, 0],
     zoom: 0,
     crs: L.CRS.Simple,
@@ -10,6 +10,8 @@ var map = L.map('image-map', {
 
 var imgs = new L.layerGroup();
 function setPics(level,center_x,center_y){
+  //imgs.clearLayers();
+  //var x0 = imgs.getLayers();
   var n = 2**level;
   // dimensions of the image
   var w = 960;
@@ -53,17 +55,44 @@ function setPics(level,center_x,center_y){
   // var imgLayer3 = L.imageOverlay('img/'+1+'/'+1+'/'+1+'.png', bounds3);
   // var imgLayers = L.layerGroup([imgLayer0,imgLayer1,imgLayer2,imgLayer3]).addTo(map);
   // imgs.clearLayers();
+  //for (var im = 0; im < x0.length; im++){
+  //	imgs.removeLayer(x0[im]);
+  //}
+};
+function delPics(level){
+	
+  //imgs.clearLayers();
+  var x0 = imgs.getLayers();
+  var n;
+  switch(level) {
+    case 0:
+      n = 1;
+      break;
+    case 1:
+      n = 4;
+      break;
+    default:
+        n = 9;
+  };
+  for (var im = 0; im < n; im++){
+		imgs.removeLayer(x0[im]);
+	}
 };
 
+var ini_level = 0;
 setPics(0,0,0);
 
+map.on('zoomstart', function(e){
+  ini_level = map.getZoom();
+});
 map.on('zoomend', function(e){
-  imgs.clearLayers();
   level = map.getZoom();
   console.log("zoom changed." + level);
   document.getElementById('text1').textContent = "当前放大层数 : " + level;
   setPics(level,map.getCenter().lng,map.getCenter().lat);
+  setTimeout( function(){delPics(ini_level);console.log("The picture of the previous layer has been deleted")}, 2 * 100 );//延迟200毫秒
 });
+
 map.on('click', function(e){
   console.log("center:"+map.getCenter());
   console.log("clicked position:"+e.latlng.lat+"/"+e.latlng.lng);
@@ -96,9 +125,7 @@ L.TileLayer.ChinaProvider = L.TileLayer.extend({
     var mapName = parts[1];
     var mapType = parts[2];
 
-    console.log("mmYY:"+ providerName+"   "+ mapName+"   "+mapType );
     var url = providers[providerName][mapName][mapType];
-    console.log("mmYY:"+url);
     options.subdomains = providers[providerName].Subdomains;
 
     L.TileLayer.prototype.initialize.call(this, url, options);
@@ -109,10 +136,13 @@ L.TileLayer.ChinaProvider = L.TileLayer.extend({
 L.TileLayer.ChinaProvider.providers = {
     MyMap: {
         Normal: {
+          //Map: 'http://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}',
        		Map: 'img/{z}/{x}/{y}.png',
         },
         Satellite: {
+          //Map: 'http://webst0{s}.is.autonavi.com/appmaptile?style=6&x={x}&y={y}&z={z}',
  			Map: 'img/{z}/{x}/{y}.png',
+          //Annotion: 'http://webst0{s}.is.autonavi.com/appmaptile?style=8&x={x}&y={y}&z={z}'
        		Annotion: 'img/{z}/{x}/{y}.png'
         },
         Subdomains: ["0","1", "2", "3", "4"]
@@ -124,7 +154,7 @@ L.tileLayer.chinaProvider = function(type, options) {
 };
 
 var normalm = L.tileLayer.chinaProvider('MyMap.Normal.Map', {
-    maxZoom: 7,
+    maxZoom: 9,
     minZoom: 0,
     tileSize: 256
 });
@@ -147,7 +177,4 @@ map_1.on('zoomend', function(e){
   level = map_1.getZoom();
   console.log("zoom changed." + level);
   document.getElementById('text2').textContent = "当前放大层数 : " + level;
-});
-map_1.on('click', function(e){
-  L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
 });
