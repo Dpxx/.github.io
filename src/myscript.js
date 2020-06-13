@@ -114,10 +114,10 @@ L.control.zoom({
 }).addTo(map);
 
 // 使用 TileLayer 类来继承实现.
-L.TileLayer.ChinaProvider = L.TileLayer.extend({
+L.TileLayer.easyMap = L.TileLayer.extend({
 
   initialize: function(type, options) { // (type, Object)
-    var providers = L.TileLayer.ChinaProvider.providers;
+    var providers = L.TileLayer.easyMap.providers;
 
     var parts = type.split('.');
 
@@ -133,7 +133,7 @@ L.TileLayer.ChinaProvider = L.TileLayer.extend({
 });
 
 
-L.TileLayer.ChinaProvider.providers = {
+L.TileLayer.easyMap.providers = {
     MyMap: {
         Normal: {
        		Map: 'img/{z}/{x}/{y}.png',
@@ -146,11 +146,11 @@ L.TileLayer.ChinaProvider.providers = {
     },
 };
 
-L.tileLayer.chinaProvider = function(type, options) {
-    return new L.TileLayer.ChinaProvider(type, options);
+L.tileLayer.easyMap = function(type, options) {
+    return new L.TileLayer.easyMap(type, options);
 };
 
-var normalm = L.tileLayer.chinaProvider('MyMap.Normal.Map', {
+var normalm = L.tileLayer.easyMap('MyMap.Normal.Map', {
     maxZoom: 7,
     minZoom: 0,
     tileSize: 256
