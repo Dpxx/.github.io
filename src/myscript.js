@@ -90,7 +90,7 @@ map.on('zoomend', function(e){
   console.log("zoom changed." + level);
   document.getElementById('text1').textContent = "当前放大层数 : " + level;
   setPics(level,map.getCenter().lng,map.getCenter().lat);
-  setTimeout( function(){delPics(ini_level);console.log("The picture of the previous layer has been deleted")}, 10 * 100 );//延迟1000毫秒
+  setTimeout( function(){delPics(ini_level);console.log("The picture of the previous layer has been deleted")}, 2 * 100 );//延迟200毫秒
 });
 
 map.on('click', function(e){
