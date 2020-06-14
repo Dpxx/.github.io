@@ -59,24 +59,36 @@ function setPics(level,center_x,center_y){
   //	imgs.removeLayer(x0[im]);
   //}
 };
-function delPics(level){
-	
+function delPics(level,cur_level,center_x,center_y){
   //imgs.clearLayers();
   var x0 = imgs.getLayers();
   var n;
-  switch(level) {
-    case 0:
-      n = 1;
-      break;
-    case 1:
-      n = 4;
-      break;
+  var w = 960/(2**cur_level);
+  if (center_x >= -1*w || center_x < w-960 || center_y <= w || center_y>=w){
+    switch(level) {
+      case 0:
+	n = 1;
+	break;
     default:
+      n = 4;
+    };
+  }
+  else{
+    switch(level) {
+      case 0:
+        n = 1;
+        break;
+      case 1:
+        n = 4;
+        break;
+      default:
         n = 9;
-  };
+    };
+  }
+
   for (var im = 0; im < n; im++){
-		imgs.removeLayer(x0[im]);
-	}
+    imgs.removeLayer(x0[im]);
+  }
 };
 
 var ini_level = 0;
@@ -90,7 +102,7 @@ map.on('zoomend', function(e){
   console.log("zoom changed." + level);
   document.getElementById('text1').textContent = "当前放大层数 : " + level;
   setPics(level,map.getCenter().lng,map.getCenter().lat);
-  setTimeout( function(){delPics(ini_level);console.log("The picture of the previous layer has been deleted")}, 2 * 100 );//延迟200毫秒
+  setTimeout( function(){delPics(ini_level,level,map.getCenter().lng,map.getCenter().lat);console.log("The picture of the previous layer has been deleted")}, 2 * 100 );//延迟200毫秒
 });
 
 map.on('click', function(e){
