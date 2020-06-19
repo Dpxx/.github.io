@@ -46,22 +46,49 @@ var miniMap = new L.Control.MiniMap(osm, { toggleDisplay: true, zoomLevelFixed:t
 </script>
 <script src="src/vue.js" charset="utf-8"></script>
 <script type="text/javascript">
-    var search_by_ID = new Vue({
+	var search_by_ID = new Vue({
       el: '#search',
       data:{
-      message: ''
+        message: ''
       },
       methods: {
         fly:function(event){
-          var p = pos[this.message];
-          if (p == ""){
-            alert("Not found！");
-          }
-          var x = -1 * p[1] * 960;
-          var y = p[0]*960;
-          console.log([x,y]);
-          map.flyTo([x,y],7);
-          L.marker([x,y]).addTo(map);
+            // original version search by ID.
+            //var p = pos[this.message];
+            //if (p == ""){
+            //	alert("No such paper！");
+            //}
+            //var x = -1 * p[1] * 960;
+            //var y = p[0]*960;
+            //console.log([x,y]);
+            //map.flyTo([x,y],7);
+            //L.marker([x,y]).addTo(map);
+
+            // Search by title.
+            var search_result = [];
+            var reg = new RegExp(this.message);
+            for (let title in pos) {
+                if (reg.test(title)) {
+                    var x = -1 * pos[title][1] * 960;
+                    var y = pos[title][0]*960;
+                    search_result.push([[x,y],title]);
+                }
+            }
+            switch(search_result.length){
+                case 0:
+                    alert("Not found！");
+                    break;
+                case 1:
+                    map.flyTo(search_result[0][0],7);
+                    L.marker(search_result[0][0]).addTo(map);
+                    break;
+                default:
+                    var t = [];
+                    for (let v of search_result){
+                        t.push(v[1]);
+                    }
+                    alert("Find may results: \n"+t.join('\n\n'));
+            }
         }
       }
     })
