@@ -26,7 +26,7 @@
   <div id="text1" style="width:9%;float:left;">当前放大层数 : 0</div>
   <div id="search">
     <input v-model="message" type="text" >
-    <button v-on:click="fly">Search by Complete Title</button><br>
+    <button v-on:click="fly">Search by Title</button><br>
   </div>
   <div id="image-map"></div>
   <div id="text2" style="width:9%;float:left;">当前放大层数 : 2</div>
@@ -46,7 +46,7 @@ var miniMap = new L.Control.MiniMap(osm, { toggleDisplay: true, zoomLevelFixed:t
 </script>
 <script src="src/vue.js" charset="utf-8"></script>
 <script type="text/javascript">
-	var search_by_ID = new Vue({
+    var search_by_title = new Vue({
       el: '#search',
       data:{
         message: ''
