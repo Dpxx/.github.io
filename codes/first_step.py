@@ -140,8 +140,7 @@ def judge(b, n):
     return s
 
 
-for level in range(9, 10):
-    # level = 11
+for level in range(0, 10):
     print('start level', level)
     n = int(pow(2, level))
     scale = n * real_pixel  # 横向或者纵向总像素
