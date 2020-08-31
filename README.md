@@ -1,9 +1,5 @@
-# dpxx.github.io
+# 基于分层加载法的超大规模网络可视化
 This is the final project for EE447 SJTU.  
-基于分层加载法的超大规模网络可视化
-
-
-访问 https://dpxx.github.io 来查看地图。
 
 img包括加载地图所需的7层切片图。
 
