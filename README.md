@@ -7,4 +7,4 @@ src为网页用到的JavaScript文件。
 
 由于文件大小限制，原始数据并未上传，处理数据所用代码见codes
 
-网站：https://dpxx.github.io/EE447_Project/[https://dpxx.github.io/EE447_Project/]
+网站：https://dpxx.github.io/EE447_Project/
